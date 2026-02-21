@@ -29,7 +29,7 @@ body::after {
 .terminal-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 
 .terminal-header { border-bottom: 2px solid var(--accent-light); padding-bottom: 20px; margin-bottom: 30px; position: relative; }
-.terminal-header::before { content: "SYS.VER // 4.5.0"; position: absolute; right: 0; top: 0; color: var(--accent-light); font-size: 12px; letter-spacing: 2px; }
+.terminal-header::before { content: "SYS.VER // 5.0.0"; position: absolute; right: 0; top: 0; color: var(--accent-light); font-size: 12px; letter-spacing: 2px; }
 .terminal-header::after { content: "UPLINK_SECURE"; position: absolute; right: 0; bottom: -20px; font-size: 10px; color: #000; background: var(--accent-light); padding: 2px 10px; clip-path: polygon(5px 0, 100% 0, 100% 100%, 0 100%, 0 5px); }
 
 .title-wrapper { display: flex; align-items: center; gap: 15px; }
@@ -52,7 +52,6 @@ textarea, .tech-select { width: 100%; background: #010203; border: 1px solid rgb
 textarea:focus, .tech-select:focus { outline: none; border-color: var(--accent-light); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
 
 .action-row { display: flex; justify-content: space-between; margin-top: 15px; gap: 15px; }
-
 .btn-scan { flex: 1; background: linear-gradient(45deg, #020810, #04101e); border: 1px solid var(--accent-light); color: var(--accent-light); font-family: 'Share Tech Mono', monospace; font-size: 16px; cursor: pointer; transition: all 0.2s ease-out; text-transform: uppercase; font-weight: bold; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
 .btn-scan:hover { background: var(--accent-light); color: #000; box-shadow: 0 0 20px var(--accent-light); transform: scale(1.02); }
 .btn-scan:disabled { background: #050505; color: #333; border-color: #222; cursor: not-allowed; transform: none; box-shadow: none; clip-path: none; }
@@ -76,18 +75,18 @@ textarea:focus, .tech-select:focus { outline: none; border-color: var(--accent-l
 .btn-pdf:hover { background: #fff; color: #000; box-shadow: 0 0 20px #fff; }
 
 .results-layout { display: flex; gap: 20px; padding: 20px; align-items: flex-start; }
+@media(max-width: 768px) { .results-layout { flex-direction: column; } .failures-sidebar { width: 100%; } }
 
-.failures-sidebar { width: 250px; background: rgba(10, 2, 2, 0.9); border: 1px solid var(--status-err); flex-shrink: 0; overflow: hidden; clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%); box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2); }
+.failures-sidebar { width: 250px; background: rgba(10, 2, 2, 0.9); border: 1px solid var(--status-err); flex-shrink: 0; overflow: hidden; clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%); }
 .failures-header { background: repeating-linear-gradient(45deg, #300, #300 10px, #500 10px, #500 20px); color: #fff; padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; border-bottom: 2px solid var(--status-err); }
 .failures-header:hover { background: #600; }
 .failures-body { padding: 15px; }
-.fail-instruction { font-size: 10px; color: var(--status-warn); margin-top: 0; border-bottom: 1px dashed rgba(255, 0, 60, 0.3); padding-bottom: 10px; text-transform: uppercase; }
+.fail-instruction { font-size: 10px; color: var(--status-warn); margin-top: 0; border-bottom: 1px dashed rgba(255, 0, 60, 0.3); padding-bottom: 10px; }
 .retry-status { font-size: 12px; color: var(--accent-light); margin-top: 10px; font-weight: bold; }
 #failuresList { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
 #failuresList li { color: var(--status-err); padding: 5px 0; border-bottom: 1px solid rgba(255, 0, 60, 0.2); font-size: 13px; display: flex; justify-content: space-between; }
 
 .results-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-
 .target-card { background: linear-gradient(135deg, rgba(5,10,15,0.95) 0%, rgba(2,5,8,0.95) 100%); border: 1px solid rgba(0, 240, 255, 0.2); border-top: 3px solid var(--accent-light); display: flex; flex-direction: column; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); transition: transform 0.15s ease-out; }
 .target-card:hover { transform: translateY(-4px); border-color: var(--accent-light); box-shadow: 0 5px 20px rgba(0, 255, 65, 0.15); border-top-color: var(--status-ok); z-index: 2; }
 .target-card.error { border-top-color: var(--status-err); border-color: rgba(255, 0, 60, 0.3); background: linear-gradient(135deg, rgba(15,5,5,0.95) 0%, rgba(8,2,2,0.95) 100%); }
@@ -117,28 +116,29 @@ textarea:focus, .tech-select:focus { outline: none; border-color: var(--accent-l
 .group-name { font-size: 11px; color: #fff; font-weight: bold; }
 .group-date { font-size: 9px; color: var(--text-muted); }
 
-/* --- A MÁGICA: PROJETOR HOLOGRÁFICO 3D (SHADERS) --- */
+/* --- A MÁGICA: O VÍDEO PRÉ-RENDERIZADO (0% DE LAG) --- */
 .ai-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle at center, rgba(3, 10, 20, 0.95) 0%, rgba(0, 0, 0, 1) 100%);
+  background: rgba(0, 3, 8, 0.96); /* Fundo quase preto para dar imersão */
   z-index: 10000; display: flex; justify-content: center; align-items: center;
   opacity: 0; pointer-events: none; transition: opacity 1.5s ease-in-out;
 }
-
 .ai-overlay.active { 
   opacity: 1; pointer-events: all; 
 }
 
-#hologramContainer {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0; left: 0;
-  /* Animação suave para dar aspecto flutuante e imponente */
-  animation: floatHologram 6s ease-in-out infinite;
+#aiVideo {
+  max-width: 100vw; 
+  max-height: 100vh;
+  object-fit: contain;
+  /* ESSA LINHA APAGA O FUNDO PRETO DO SEU VÍDEO MP4 */
+  mix-blend-mode: screen; 
+  /* ADICIONA AQUELE NEON INSANO POR CIMA DO VÍDEO */
+  filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6)) contrast(1.1) brightness(1.2);
+  transform: scale(0.95);
+  transition: transform 3s cubic-bezier(0.1, 0.9, 0.2, 1);
 }
 
-@keyframes floatHologram {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
+.ai-overlay.active #aiVideo {
+  transform: scale(1.05); /* Efeito do rosto "vindo" na sua direção */
 }
