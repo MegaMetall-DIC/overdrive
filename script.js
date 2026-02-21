@@ -380,3 +380,96 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+// ===== HOLOGRAMA 3D INSANO =====
+
+const canvas = document.getElementById("hologramCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+let points = [];
+const POINT_COUNT = 2200;
+const radius = 220;
+
+function createFacePoints() {
+  points = [];
+  
+  for (let i = 0; i < POINT_COUNT; i++) {
+    let theta = Math.random() * Math.PI;
+    let phi = Math.random() * Math.PI * 2;
+
+    let x = radius * Math.sin(theta) * Math.cos(phi);
+    let y = radius * Math.sin(theta) * Math.sin(phi);
+    let z = radius * Math.cos(theta);
+
+    // Achatando levemente para parecer rosto
+    z *= 1.2;
+    y *= 1.1;
+
+    points.push({ x, y, z });
+  }
+}
+
+createFacePoints();
+
+let angle = 0;
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  angle += 0.002;
+
+  for (let p of points) {
+    let rotatedX = p.x * Math.cos(angle) - p.z * Math.sin(angle);
+    let rotatedZ = p.x * Math.sin(angle) + p.z * Math.cos(angle);
+
+    let scale = 600 / (600 + rotatedZ);
+    let x2d = rotatedX * scale + canvas.width / 2;
+    let y2d = p.y * scale + canvas.height / 2;
+
+    ctx.beginPath();
+    ctx.arc(x2d, y2d, 0.7, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0,255,255,0.9)";
+    ctx.fill();
+  }
+
+  // Conexões próximas (malha detalhada)
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i + 1; j < points.length; j++) {
+      let dx = points[i].x - points[j].x;
+      let dy = points[i].y - points[j].y;
+      let dz = points[i].z - points[j].z;
+      let dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+      if (dist < 35) {
+        let p1 = points[i];
+        let p2 = points[j];
+
+        let r1x = p1.x * Math.cos(angle) - p1.z * Math.sin(angle);
+        let r1z = p1.x * Math.sin(angle) + p1.z * Math.cos(angle);
+        let s1 = 600 / (600 + r1z);
+
+        let r2x = p2.x * Math.cos(angle) - p2.z * Math.sin(angle);
+        let r2z = p2.x * Math.sin(angle) + p2.z * Math.cos(angle);
+        let s2 = 600 / (600 + r2z);
+
+        ctx.beginPath();
+        ctx.moveTo(r1x * s1 + canvas.width / 2, p1.y * s1 + canvas.height / 2);
+        ctx.lineTo(r2x * s2 + canvas.width / 2, p2.y * s2 + canvas.height / 2);
+        ctx.strokeStyle = "rgba(0,255,255,0.08)";
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw();
