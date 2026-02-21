@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -15,8 +17,8 @@
       <div class="title-wrapper">
         <i class="fa-solid fa-crosshairs radar-icon"></i>
         <div>
-          <h1>[ INTEL_TRACKER v4.0 ]</h1>
-          <p>MÓDULO DE EXTRAÇÃO RÁPIDA DE DADOS TÁTICOS (HABBO API)</p>
+          <h1>[ INTEL_TRACKER v4.5 ]</h1>
+          <p>MÓDULO DE EXTRAÇÃO RÁPIDA DE DADOS TÁTICOS E ANÁLISE BIOMÉTRICA</p>
         </div>
       </div>
     </header>
@@ -45,22 +47,10 @@
         <h2><i class="fa-solid fa-filter"></i> FILTROS DE EXIBIÇÃO</h2>
       </div>
       <div class="filter-body">
-        <label class="tech-checkbox">
-          <input type="checkbox" id="chkAllGroups">
-          <span>Mostrar TODOS os grupos (Ignorar filtro militar)</span>
-        </label>
-        <label class="tech-checkbox">
-          <input type="checkbox" id="chkOtherPolice">
-          <span>Apenas "Outras Polícias" (Exclui afiliações DIC)</span>
-        </label>
-        <label class="tech-checkbox">
-          <input type="checkbox" id="chkOffline">
-          <span>Apenas Modo Offline (Visto por último oculto)</span>
-        </label>
-        <label class="tech-checkbox">
-          <input type="checkbox" id="chkHidden">
-          <span>Apenas Visibilidade Desativada (Perfil Fechado)</span>
-        </label>
+        <label class="tech-checkbox"><input type="checkbox" id="chkAllGroups"><span>Mostrar TODOS os grupos</span></label>
+        <label class="tech-checkbox"><input type="checkbox" id="chkOtherPolice"><span>Apenas "Outras Polícias"</span></label>
+        <label class="tech-checkbox"><input type="checkbox" id="chkOffline"><span>Apenas Modo Offline</span></label>
+        <label class="tech-checkbox"><input type="checkbox" id="chkHidden"><span>Apenas Visibilidade Oculta</span></label>
         
         <div class="filter-actions">
           <button id="btnApplyFilters" class="btn-scan"><i class="fa-solid fa-check"></i> SALVAR</button>
@@ -76,18 +66,9 @@
       </div>
 
       <div id="analyticsPanel" class="analytics-hud" style="display: none;">
-        <div class="stat-box">
-          <div class="stat-value" id="statOnline">0</div>
-          <div class="stat-label">OPERACIONAIS (ONLINE)</div>
-        </div>
-        <div class="stat-box warning-box">
-          <div class="stat-value" id="statRisco">0</div>
-          <div class="stat-label">TRANSGRESSÕES</div>
-        </div>
-        <div class="stat-box error-box">
-          <div class="stat-value" id="statBaixas">0</div>
-          <div class="stat-label">BAIXAS (ERROS/BAN)</div>
-        </div>
+        <div class="stat-box"><div class="stat-value" id="statOnline">0</div><div class="stat-label">OPERACIONAIS (ONLINE)</div></div>
+        <div class="stat-box warning-box"><div class="stat-value" id="statRisco">0</div><div class="stat-label">TRANSGRESSÕES</div></div>
+        <div class="stat-box error-box"><div class="stat-value" id="statBaixas">0</div><div class="stat-label">BAIXAS (ERROS/BAN)</div></div>
         <button id="btnExportPDF" class="btn-scan btn-pdf"><i class="fa-solid fa-file-pdf"></i> GERAR DOSSIÊ</button>
       </div>
       
@@ -103,14 +84,13 @@
              <div id="retryStatus" class="retry-status"></div>
           </div>
         </aside>
-
         <div id="resultsGrid" class="results-grid"></div>
       </div>
     </section>
   </div>
 
   <div id="aiOverlay" class="ai-overlay">
-    <canvas id="aiCanvas"></canvas>
+    <div id="hologramContainer"></div>
   </div>
 
   <script src="script.js"></script>
