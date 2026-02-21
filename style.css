@@ -1,0 +1,150 @@
+/* =========================================
+   SISTEMA DE INTELIGÊNCIA // PROJETO OVERDRIVE
+   ========================================= */
+
+:root {
+  --bg-core: #020406; 
+  --tron-cyan: #00f0ff; 
+  --matrix-green: #00ff41; 
+  --mili-amber: #ffb000; 
+  --cyber-red: #ff003c; 
+  --panel-bg: rgba(6, 10, 14, 0.85); 
+  --text-main: #d1d8d1;
+  --text-muted: #546b7a;
+  --status-ok: var(--matrix-green);
+  --status-err: var(--cyber-red);
+  --status-warn: var(--mili-amber);
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-core); border-left: 1px solid rgba(0, 240, 255, 0.1); }
+::-webkit-scrollbar-thumb { background: var(--tron-cyan); border-radius: 0px; box-shadow: 0 0 10px var(--tron-cyan); }
+::-webkit-scrollbar-thumb:hover { background: var(--matrix-green); }
+
+body {
+  margin: 0; background-color: var(--bg-core); color: var(--text-main); font-family: 'Share Tech Mono', monospace; padding: 20px; overflow-x: hidden;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px); background-size: 30px 30px;
+}
+
+body::after {
+  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: var(--tron-cyan); box-shadow: 0 2px 20px 4px rgba(0, 255, 65, 0.2); z-index: 9999; pointer-events: none; transform: translateY(-10vh); animation: overdriveScan 6s ease-in-out infinite; will-change: transform;
+}
+@keyframes overdriveScan { 0% { transform: translateY(-10vh); } 50% { transform: translateY(110vh); } 100% { transform: translateY(-10vh); } }
+
+.terminal-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
+.terminal-header { border-bottom: 2px solid var(--tron-cyan); padding-bottom: 20px; margin-bottom: 30px; position: relative; }
+.terminal-header::before { content: "SYS.VER // 4.0.0"; position: absolute; right: 0; top: 0; color: var(--tron-cyan); font-size: 12px; letter-spacing: 2px; text-shadow: 0 0 5px var(--tron-cyan); }
+.terminal-header::after { content: "UPLINK_SECURE_MTRX"; position: absolute; right: 0; bottom: -20px; font-size: 10px; color: #000; background: var(--tron-cyan); padding: 2px 10px; box-shadow: 0 0 10px var(--tron-cyan); clip-path: polygon(5px 0, 100% 0, 100% 100%, 0 100%, 0 5px); }
+
+.title-wrapper { display: flex; align-items: center; gap: 15px; }
+.radar-icon { font-size: 40px; color: var(--tron-cyan); animation: spin 4s linear infinite; text-shadow: 0 0 15px var(--tron-cyan); }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+h1 { margin: 0; font-size: 28px; color: var(--tron-cyan); letter-spacing: 2px; text-shadow: 0 0 15px rgba(0, 240, 255, 0.6); text-transform: uppercase; }
+p { margin: 5px 0 0; color: var(--mili-amber); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+.control-panel, .filter-section, .results-section { background: var(--panel-bg); border: 1px solid rgba(0, 240, 255, 0.2); margin-bottom: 30px; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); position: relative; }
+.control-panel::before, .filter-section::before, .results-section::before { content: ""; position: absolute; top: 0; left: 15px; width: 50px; height: 2px; background: var(--tron-cyan); }
+
+.panel-header { background: rgba(0, 240, 255, 0.05); padding: 10px 15px; border-bottom: 1px solid rgba(0, 240, 255, 0.2); display: flex; justify-content: space-between; align-items: center; }
+.panel-header h2 { margin: 0; font-size: 16px; color: var(--tron-cyan); text-shadow: 0 0 5px rgba(0, 240, 255, 0.4); text-transform: uppercase;}
+.scan-status { font-size: 12px; color: var(--matrix-green); font-weight: bold; text-shadow: 0 0 5px var(--matrix-green); }
+
+.panel-body { padding: 20px; }
+.instruction { margin-top: 0; margin-bottom: 10px; font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+
+textarea, .tech-select { width: 100%; background: #010203; border: 1px solid rgba(0, 240, 255, 0.3); color: var(--matrix-green); font-family: 'Share Tech Mono', monospace; padding: 10px; box-sizing: border-box; resize: vertical; font-size: 14px; transition: all 0.2s; }
+textarea:focus, .tech-select:focus { outline: none; border-color: var(--tron-cyan); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1); }
+
+.action-row { display: flex; justify-content: space-between; margin-top: 15px; gap: 15px; }
+
+.btn-scan { flex: 1; background: linear-gradient(45deg, #020810, #04101e); border: 1px solid var(--tron-cyan); color: var(--tron-cyan); font-family: 'Share Tech Mono', monospace; font-size: 16px; cursor: pointer; transition: all 0.2s ease-out; text-transform: uppercase; font-weight: bold; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.btn-scan:hover { background: var(--tron-cyan); color: #000; box-shadow: 0 0 20px var(--tron-cyan); transform: scale(1.02); }
+.btn-scan:disabled { background: #050505; color: #333; border-color: #222; cursor: not-allowed; transform: none; box-shadow: none; clip-path: none; }
+
+.filter-body { padding: 15px 20px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+.tech-checkbox { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text-main); }
+.tech-checkbox input { accent-color: var(--tron-cyan); width: 16px; height: 16px; cursor: pointer; }
+.filter-actions { display: flex; gap: 10px; margin-left: auto; }
+.btn-clear { background: #0a0101; border-color: var(--cyber-red); color: var(--cyber-red); }
+.btn-clear:hover { background: var(--cyber-red); color: #fff; box-shadow: 0 0 15px var(--cyber-red); }
+
+.analytics-hud { display: flex; gap: 15px; padding: 15px; background: rgba(0, 240, 255, 0.05); border-bottom: 1px solid rgba(0, 240, 255, 0.2); align-items: stretch; flex-wrap: wrap; }
+.stat-box { flex: 1; min-width: 120px; background: rgba(0,0,0,0.6); border: 1px solid var(--tron-cyan); padding: 10px; text-align: center; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.stat-box.warning-box { border-color: var(--mili-amber); }
+.stat-box.warning-box .stat-value { color: var(--mili-amber); text-shadow: 0 0 10px rgba(255, 176, 0, 0.5); }
+.stat-box.error-box { border-color: var(--cyber-red); }
+.stat-box.error-box .stat-value { color: var(--cyber-red); text-shadow: 0 0 10px rgba(255, 0, 60, 0.5); }
+.stat-value { font-size: 24px; font-weight: bold; color: var(--tron-cyan); text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+.stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 5px; }
+.btn-pdf { flex: 0 0 auto; background: var(--mili-amber); color: #000; border: none; text-shadow: none; box-shadow: 0 0 10px rgba(255, 176, 0, 0.4); }
+.btn-pdf:hover { background: #fff; color: #000; box-shadow: 0 0 20px #fff; }
+
+.results-layout { display: flex; gap: 20px; padding: 20px; align-items: flex-start; }
+
+.failures-sidebar { width: 250px; background: rgba(10, 2, 2, 0.9); border: 1px solid var(--cyber-red); flex-shrink: 0; overflow: hidden; clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%); box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2); }
+.failures-header { background: repeating-linear-gradient(45deg, #300, #300 10px, #500 10px, #500 20px); color: #fff; padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: bold; border-bottom: 2px solid var(--cyber-red); text-shadow: 0 0 5px var(--cyber-red); }
+.failures-header:hover { background: #600; }
+.failures-body { padding: 15px; }
+.fail-instruction { font-size: 10px; color: var(--mili-amber); margin-top: 0; border-bottom: 1px dashed rgba(255, 0, 60, 0.3); padding-bottom: 10px; text-transform: uppercase; }
+.retry-status { font-size: 12px; color: var(--tron-cyan); margin-top: 10px; font-weight: bold; }
+#failuresList { list-style: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; }
+#failuresList li { color: var(--cyber-red); padding: 5px 0; border-bottom: 1px solid rgba(255, 0, 60, 0.2); font-size: 13px; display: flex; justify-content: space-between; text-shadow: 0 0 5px rgba(255, 0, 60, 0.5); }
+
+.results-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+
+.target-card { background: linear-gradient(135deg, rgba(5,10,15,0.95) 0%, rgba(2,5,8,0.95) 100%); border: 1px solid rgba(0, 240, 255, 0.2); border-top: 3px solid var(--tron-cyan); display: flex; flex-direction: column; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); transition: transform 0.15s ease-out, box-shadow 0.15s ease-out; will-change: transform; }
+.target-card:hover { transform: translateY(-4px); border-color: var(--tron-cyan); box-shadow: 0 5px 20px rgba(0, 255, 65, 0.15), inset 0 0 15px rgba(0, 255, 65, 0.1); border-top-color: var(--matrix-green); z-index: 2; }
+.target-card.error { border-top-color: var(--cyber-red); border-color: rgba(255, 0, 60, 0.3); background: linear-gradient(135deg, rgba(15,5,5,0.95) 0%, rgba(8,2,2,0.95) 100%); }
+.target-card.error:hover { border-color: var(--cyber-red); box-shadow: 0 5px 20px rgba(255, 0, 60, 0.3), inset 0 0 15px rgba(255, 0, 60, 0.2); }
+
+.card-header { background: rgba(0,0,0,0.5); padding: 10px; border-bottom: 1px dashed rgba(0, 240, 255, 0.2); display: flex; align-items: center; gap: 12px; }
+.avatar-box { width: 45px; height: 45px; background: #000; border: 1px solid var(--tron-cyan); display: flex; justify-content: center; align-items: flex-start; position: relative; box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.3); }
+.avatar-box::before { content: "["; position: absolute; top: 12px; left: 2px; color: var(--matrix-green); font-size: 16px; font-weight: bold; }
+.avatar-box::after { content: "]"; position: absolute; top: 12px; right: 2px; color: var(--matrix-green); font-size: 16px; font-weight: bold; }
+.avatar-box img { margin-top: -12px; filter: contrast(1.2) drop-shadow(0 0 2px rgba(255,255,255,0.2)); }
+.header-info h3 { margin: 0; font-size: 16px; color: #fff; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 5px var(--tron-cyan); }
+.header-info p { margin: 0; font-size: 10px; color: var(--mili-amber); text-shadow: 0 0 5px rgba(255, 176, 0, 0.4); }
+
+.card-body { padding: 12px; position: relative; }
+.data-row { display: flex; margin-bottom: 6px; font-size: 12px; border-bottom: 1px solid rgba(0, 240, 255, 0.05); padding-bottom: 4px; }
+.data-label { width: 120px; color: var(--mili-amber); text-transform: uppercase; font-size: 11px; }
+.data-value { flex: 1; color: var(--matrix-green); font-weight: bold; text-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
+.val-green { color: var(--matrix-green); text-shadow: 0 0 8px rgba(0, 255, 65, 0.6); }
+.val-red { color: var(--cyber-red); text-shadow: 0 0 8px rgba(255, 0, 60, 0.6); }
+.val-gray { color: var(--text-muted); text-shadow: none; }
+
+.groups-container { margin-top: 15px; border-top: 2px solid rgba(0, 240, 255, 0.1); padding-top: 10px;}
+.groups-title { font-size: 11px; color: var(--tron-cyan); margin-bottom: 8px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+.group-item { display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid rgba(0, 240, 255, 0.1); padding: 6px; margin-bottom: 5px; gap: 10px; transition: all 0.2s; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
+.group-item:hover { background: rgba(0, 240, 255, 0.05); border-color: var(--tron-cyan); box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1); }
+.group-item img { image-rendering: pixelated; max-width: 35px; filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3)); }
+.group-details { display: flex; flex-direction: column; }
+.group-name { font-size: 11px; color: #fff; font-weight: bold; }
+.group-date { font-size: 9px; color: var(--text-muted); }
+
+/* --- A MÁGICA: AMBIENTE DO PROJETOR 3D --- */
+.ai-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  /* Escuridão profunda com brilho radial do projetor */
+  background: radial-gradient(circle at center, rgba(0, 20, 30, 0.96) 0%, rgba(0, 0, 0, 0.99) 70%);
+  z-index: 10000; display: flex; justify-content: center; align-items: center;
+  opacity: 0; pointer-events: none; transition: opacity 1.5s ease-in-out;
+}
+.ai-overlay.active { opacity: 1; pointer-events: all; }
+
+/* O Canvas engole a tela e aplica o efeito Glow via Placa de Vídeo, impedindo travamentos */
+#aiCanvas {
+  width: 100vw;
+  height: 100vh;
+  max-width: 1000px; /* Limite elegante para não estourar telas Ultrawide */
+  max-height: 1000px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6)) drop-shadow(0 0 25px rgba(0, 240, 255, 0.3));
+  animation: floatHologram 6s ease-in-out infinite;
+}
+
+@keyframes floatHologram {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.02); }
+}

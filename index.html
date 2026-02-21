@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INTEL // Rastreador de Alvos</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="terminal-container">
+    <header class="terminal-header">
+      <div class="title-wrapper">
+        <i class="fa-solid fa-crosshairs radar-icon"></i>
+        <div>
+          <h1>[ INTEL_TRACKER v4.0 ]</h1>
+          <p>MÓDULO DE EXTRAÇÃO RÁPIDA DE DADOS TÁTICOS (HABBO API)</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="control-panel">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-list"></i> LISTA DE ALVOS (NICKS)</h2>
+      </div>
+      <div class="panel-body">
+        <p class="instruction">Insira um nick por linha (Máximo recomendado: 150). O sistema usará varredura em lotes paralelos.</p>
+        <textarea id="nickList" rows="6" placeholder="Alvo1&#10;Alvo2&#10;Alvo3..."></textarea>
+        
+        <div class="action-row">
+          <select id="hotelSelect" class="tech-select">
+            <option value="com.br">Servidor: BR (.com.br)</option>
+            <option value="com">Servidor: US (.com)</option>
+            <option value="es">Servidor: ES (.es)</option>
+          </select>
+          <button id="btnSearch" class="btn-scan"><i class="fa-solid fa-satellite-dish"></i> INICIAR VARREDURA</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-section">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-filter"></i> FILTROS DE EXIBIÇÃO</h2>
+      </div>
+      <div class="filter-body">
+        <label class="tech-checkbox">
+          <input type="checkbox" id="chkAllGroups">
+          <span>Mostrar TODOS os grupos (Ignorar filtro militar)</span>
+        </label>
+        <label class="tech-checkbox">
+          <input type="checkbox" id="chkOtherPolice">
+          <span>Apenas "Outras Polícias" (Exclui afiliações DIC)</span>
+        </label>
+        <label class="tech-checkbox">
+          <input type="checkbox" id="chkOffline">
+          <span>Apenas Modo Offline (Visto por último oculto)</span>
+        </label>
+        <label class="tech-checkbox">
+          <input type="checkbox" id="chkHidden">
+          <span>Apenas Visibilidade Desativada (Perfil Fechado)</span>
+        </label>
+        
+        <div class="filter-actions">
+          <button id="btnApplyFilters" class="btn-scan"><i class="fa-solid fa-check"></i> SALVAR</button>
+          <button id="btnClearFilters" class="btn-scan btn-clear"><i class="fa-solid fa-xmark"></i> REMOVER FILTROS</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <div class="panel-header main-result-header">
+        <h2><i class="fa-solid fa-database"></i> RELATÓRIOS DOS ALVOS (<span id="resultCount">0</span>)</h2>
+        <span id="scanStatus" class="scan-status">Aguardando comando...</span>
+      </div>
+
+      <div id="analyticsPanel" class="analytics-hud" style="display: none;">
+        <div class="stat-box">
+          <div class="stat-value" id="statOnline">0</div>
+          <div class="stat-label">OPERACIONAIS (ONLINE)</div>
+        </div>
+        <div class="stat-box warning-box">
+          <div class="stat-value" id="statRisco">0</div>
+          <div class="stat-label">TRANSGRESSÕES</div>
+        </div>
+        <div class="stat-box error-box">
+          <div class="stat-value" id="statBaixas">0</div>
+          <div class="stat-label">BAIXAS (ERROS/BAN)</div>
+        </div>
+        <button id="btnExportPDF" class="btn-scan btn-pdf"><i class="fa-solid fa-file-pdf"></i> GERAR DOSSIÊ</button>
+      </div>
+      
+      <div class="results-layout">
+        <aside class="failures-sidebar">
+          <div class="failures-header" id="failuresToggle">
+            <span>FALHAS NA BUSCA (<span id="failCount">0</span>)</span>
+            <i class="fa-solid fa-chevron-down" id="toggleIcon"></i>
+          </div>
+          <div class="failures-body" id="failuresBody" style="display: none;">
+             <p class="fail-instruction">Clique na seta para re-processar os alvos perdidos automaticamente.</p>
+             <ul id="failuresList"></ul>
+             <div id="retryStatus" class="retry-status"></div>
+          </div>
+        </aside>
+        <div id="resultsGrid" class="results-grid"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="aiOverlay" class="ai-overlay">
+    <canvas id="aiCanvas"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
