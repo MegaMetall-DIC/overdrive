@@ -11,12 +11,13 @@
 <body>
 
   <div class="terminal-container">
+    
     <header class="terminal-header">
       <div class="title-wrapper">
         <i class="fa-solid fa-crosshairs radar-icon"></i>
         <div>
           <h1>[ INTEL_TRACKER v5.0 ]</h1>
-          <p>MÓDULO DE EXTRAÇÃO RÁPIDA DE DADOS TÁTICOS (HABBO API)</p>
+          <p>MÓDULO DE EXTRAÇÃO RÁPIDA DE DADOS TÁTICOS E ANÁLISE BIOMÉTRICA</p>
         </div>
       </div>
     </header>
@@ -67,7 +68,6 @@
         <div class="stat-box"><div class="stat-value" id="statOnline">0</div><div class="stat-label">OPERACIONAIS (ONLINE)</div></div>
         <div class="stat-box warning-box"><div class="stat-value" id="statRisco">0</div><div class="stat-label">TRANSGRESSÕES</div></div>
         <div class="stat-box error-box"><div class="stat-value" id="statBaixas">0</div><div class="stat-label">BAIXAS (ERROS/BAN)</div></div>
-        <button id="btnExportPDF" class="btn-scan btn-pdf"><i class="fa-solid fa-file-pdf"></i> GERAR DOSSIÊ</button>
       </div>
       
       <div class="results-layout">
@@ -82,15 +82,15 @@
              <div id="retryStatus" class="retry-status"></div>
           </div>
         </aside>
+
         <div id="resultsGrid" class="results-grid"></div>
+
       </div>
     </section>
   </div>
 
   <div id="aiOverlay" class="ai-overlay">
-    <video id="aiVideo" loop muted playsinline>
-      <source src="holograma.mp4" type="video/mp4">
-    </video>
+    <canvas id="hologramCanvas"></canvas>
   </div>
 
   <script src="script.js"></script>
